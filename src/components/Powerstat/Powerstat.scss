@@ -1,0 +1,26 @@
+.powerstat {
+
+  &.intelligence {
+    color: blue;
+  }
+
+  &.strength {
+    color: orange;
+  }
+
+  &.speed {
+    color: green;
+  }
+
+  &.durability {
+    color: darkslategray;
+  }
+
+  &.combat {
+    color: purple;
+  }
+
+  &.power {
+    color: red;
+  }
+}
