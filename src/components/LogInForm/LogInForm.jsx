@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
@@ -29,12 +30,13 @@ function LogInForm() {
       try {
         res = await axios.post(url, { email, password });
         if (res.status === 200) {
-          window.sessionStorage.setItem('token', res.data.token);
+          window.localStorage.setItem('token', res.data.token);
           history.push('/');
         } else {
           throw new Error(res.data);
         }
       } catch (err) {
+        alert('Invalid credentials');
         formik.errors.email = 'Invalid email. Try \'challenge@alkemy.org\'';
         formik.errors.password = 'Invalid password. Try \'react\'';
       }
@@ -76,7 +78,7 @@ function LogInForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Button variant="primary" type="submit">
-          Login
+          Enviar
         </Button>
       </Form>
     </div>
