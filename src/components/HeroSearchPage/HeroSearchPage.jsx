@@ -13,7 +13,7 @@ function HeroSearchPage() {
   const [alert, setAlert] = useState(null);
 
   const addToTeam = (hero) => {
-    const result = addHero(hero);
+    const result = addHero(hero.id);
     if (result === true) {
       setAlert({
         type: 'success',
@@ -67,9 +67,8 @@ function HeroSearchPage() {
 
       <Row className="justify-content-start">
         {results && results.map((res) => (
-          <Col>
+          <Col key={res.id}>
             <HeroCard
-              key={res.id}
               id={res.id}
               name={res.name}
               image={res.image.url}
