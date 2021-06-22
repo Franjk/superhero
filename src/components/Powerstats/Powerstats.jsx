@@ -8,24 +8,26 @@ import './Powerstats.scss';
 function Powerstats({ powerstats }) {
   return (
     <Table className="powerstats" hover size="sm">
-      <tr>
-        <td>Intelligence</td>
-        <td>{powerstats.intelligence}</td>
-        <td>Strength</td>
-        <td>{powerstats.strength}</td>
-      </tr>
-      <tr>
-        <td>Speed</td>
-        <td>{powerstats.speed}</td>
-        <td>Durability</td>
-        <td>{powerstats.durability}</td>
-      </tr>
-      <tr>
-        <td>Power</td>
-        <td>{powerstats.power}</td>
-        <td>Combat</td>
-        <td>{powerstats.combat}</td>
-      </tr>
+      <tbody>
+        <tr>
+          <td>Intelligence</td>
+          <td>{powerstats.intelligence}</td>
+          <td>Strength</td>
+          <td>{powerstats.strength}</td>
+        </tr>
+        <tr>
+          <td>Speed</td>
+          <td>{powerstats.speed}</td>
+          <td>Durability</td>
+          <td>{powerstats.durability}</td>
+        </tr>
+        <tr>
+          <td>Power</td>
+          <td>{powerstats.power}</td>
+          <td>Combat</td>
+          <td>{powerstats.combat}</td>
+        </tr>
+      </tbody>
     </Table>
   );
 }

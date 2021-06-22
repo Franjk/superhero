@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
@@ -10,6 +11,7 @@ const url = 'http://challenge-react.alkemy.org/';
 
 function LogInForm() {
   const history = useHistory();
+  console.log('history', history);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -25,17 +27,20 @@ function LogInForm() {
     }),
     onSubmit: async (values) => {
       const { email, password } = values;
+      console.log('history2', history);
 
       let res;
       try {
         res = await axios.post(url, { email, password });
+        console.log('res.status', res.status);
         if (res.status === 200) {
           window.localStorage.setItem('token', res.data.token);
-          history.push('/');
+          history.push('/home');
         } else {
           throw new Error(res.data);
         }
       } catch (err) {
+        console.warn(err);
         alert('Invalid credentials');
         formik.errors.email = 'Invalid email. Try \'challenge@alkemy.org\'';
         formik.errors.password = 'Invalid password. Try \'react\'';
