@@ -1,83 +1,57 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import {
-  Col, Container, FormGroup, Row,
+  Col, Container, Row, Spinner,
 } from 'react-bootstrap';
-// import { useHistory } from 'react-router-dom';
+import { getTeam, removeHero } from '../../helpers/localStorage';
+import axios from '../../axios';
 import TeamItem from '../TeamItem/TeamItem';
 import './Team.scss';
 
-// TODO Leer del localStorage
-// TODO Chequear si esta el token
-
-const sampleTeam = [ // leer del local storage
-  {
-    id: 1,
-    name: 'Batman',
-    image: 'https://www.superherodb.com/pictures2/portraits/10/100/639.jpg',
-    powerstats: 'powerstats',
-    actions: 'actions',
-  },
-  {
-    id: 2,
-    name: 'Batman',
-    image: 'https://www.superherodb.com/pictures2/portraits/10/100/639.jpg',
-    powerstats: 'powerstats',
-    actions: 'actions',
-  },
-  {
-    id: 3,
-    name: 'Batman',
-    image: 'https://www.superherodb.com/pictures2/portraits/10/100/639.jpg',
-    powerstats: 'powerstats',
-    actions: 'actions',
-  },
-  {
-    id: 4,
-    name: 'Batman',
-    image: 'https://www.superherodb.com/pictures2/portraits/10/100/639.jpg',
-    powerstats: 'powerstats',
-    actions: 'actions',
-  },
-];
-
 function Team() {
-  // TODO implementar redireccion y corregir los handler builder
-  // const history = useHistory();
+  const [team, setTeam] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const buildDetailsBtnClickHandler = (id) => () => {
-    alert(`details: ${id}`);
+  const loadTeam = async () => {
+    const teamIds = getTeam();
+    const tmpTeam = [];
+    await teamIds.forEach(async (id) => {
+      const res = await axios.get(`/${id}`);
+      if (res) tmpTeam.push(res.data);
+    });
+    setTeam(tmpTeam);
+    setLoading(false);
   };
 
-  const buildDeleteBtnClickHandler = (id) => () => {
-    alert(`delete: ${id}`);
+  if (!team) {
+    loadTeam();
+  }
+
+  const deleteBtnHandler = (id) => {
+    removeHero(id);
+    setTeam((prevTeam) => prevTeam.filter((t) => t.id !== id));
   };
 
   return (
     <Container className="team">
+      <h1 className="mb-5">Team</h1>
       <Row className="row">
-        { sampleTeam.map((team) => (
+        {loading && (<Spinner animation="grow" variant="primary" />)}
 
-          <Col key={team.id}>
-            <FormGroup>
-              <TeamItem
-                name="Batman"
-                image="https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"
-                powerstats={{
-                  intelligence: '100',
-                  strength: '26',
-                  speed: '27',
-                  durability: '50',
-                  power: '47',
-                  combat: '100',
-                }}
-                actions={
-                  {
-                    details: buildDetailsBtnClickHandler(team.id),
-                    delete: buildDeleteBtnClickHandler(team.id),
-                  }
+        {team && team.map((hero) => (
+
+          <Col key={hero.id}>
+            <TeamItem
+              id={hero.id}
+              name={hero.name}
+              image={hero.image?.url}
+              powerstats={hero.powerstats}
+              actions={
+                {
+                  delete: deleteBtnHandler,
                 }
-              />
-            </FormGroup>
+              }
+            />
           </Col>
 
         ))}

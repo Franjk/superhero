@@ -3,24 +3,25 @@ import PropTypes from 'prop-types';
 import {
   Button, Card, Col, Row,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './TeamItem.scss';
 import Powerstats from '../Powerstats/Powerstats';
 
 function TeamItem({
-  name, image, powerstats, actions,
+  id, name, image, powerstats, actions,
 }) {
   return (
-    <Card className="team-item">
-      <Card.Img variant="top" src={image} />
+    <Card className="team-item mb-5">
+      <Card.Img className="team-item-image" variant="top" src={image} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Powerstats powerstats={powerstats} />
         <Row className="button-container">
           <Col>
-            <Button variant="secondary" onClick={actions.details}>Details</Button>
+            <Link className="btn btn-secondary" to={`/hero/${id}`}>Details</Link>
           </Col>
           <Col>
-            <Button variant="danger" onClick={actions.delete}>Remove</Button>
+            <Button variant="danger" onClick={() => actions.delete(id)}>Remove</Button>
           </Col>
         </Row>
       </Card.Body>
@@ -29,6 +30,7 @@ function TeamItem({
 }
 
 TeamItem.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   powerstats: PropTypes.shape({
@@ -40,7 +42,6 @@ TeamItem.propTypes = {
     combat: PropTypes.string,
   }).isRequired,
   actions: PropTypes.shape({
-    details: PropTypes.func,
     delete: PropTypes.func,
   }).isRequired,
 };

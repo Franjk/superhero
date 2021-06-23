@@ -1,4 +1,10 @@
 .team-item {
   color: black;
-  width: 300px;
+  width: 320px;
+  margin: auto;
+
+  &-image {
+    width: 100%;
+    height: 400px;
+  }
 }

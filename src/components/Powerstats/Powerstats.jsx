@@ -10,22 +10,22 @@ function Powerstats({ powerstats }) {
     <Table className="powerstats" hover size="sm">
       <tbody>
         <tr>
-          <td>Intelligence</td>
-          <td>{powerstats.intelligence}</td>
-          <td>Strength</td>
-          <td>{powerstats.strength}</td>
+          <td className="table-row-title">Intelligence</td>
+          <td>{powerstats.intelligence === 'null' ? 'unknown' : powerstats.intelligence}</td>
+          <td className="table-row-title">Strength</td>
+          <td>{powerstats.strength === 'null' ? 'unknown' : powerstats.strength}</td>
         </tr>
         <tr>
-          <td>Speed</td>
-          <td>{powerstats.speed}</td>
-          <td>Durability</td>
-          <td>{powerstats.durability}</td>
+          <td className="table-row-title">Speed</td>
+          <td>{powerstats.speed === 'null' ? 'unknown' : powerstats.speed}</td>
+          <td className="table-row-title">Durability</td>
+          <td>{powerstats.durability === 'null' ? 'unknown' : powerstats.durability}</td>
         </tr>
         <tr>
-          <td>Power</td>
-          <td>{powerstats.power}</td>
-          <td>Combat</td>
-          <td>{powerstats.combat}</td>
+          <td className="table-row-title">Power</td>
+          <td>{powerstats.power === 'null' ? 'unknown' : powerstats.power}</td>
+          <td className="table-row-title">Combat</td>
+          <td>{powerstats.combat === 'null' ? 'unknown' : powerstats.combat}</td>
         </tr>
       </tbody>
     </Table>
