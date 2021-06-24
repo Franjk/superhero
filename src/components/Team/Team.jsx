@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Col, Container, Row, Spinner,
 } from 'react-bootstrap';
@@ -12,20 +12,15 @@ function Team() {
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const loadTeam = async () => {
+  useEffect(() => {
     const teamIds = getTeam();
-    const tmpTeam = [];
-    await teamIds.forEach(async (id) => {
-      const res = await axios.get(`/${id}`);
-      if (res) tmpTeam.push(res.data);
-    });
-    setTeam(tmpTeam);
-    setLoading(false);
-  };
-
-  if (!team) {
-    loadTeam();
-  }
+    const fetchData = async () => {
+      const res = await Promise.all(teamIds.map((id) => axios.get(`/${id}`)));
+      setTeam(res.map((r) => r.data));
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const deleteBtnHandler = (id) => {
     removeHero(id);
