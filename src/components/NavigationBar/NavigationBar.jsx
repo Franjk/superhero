@@ -7,7 +7,20 @@ function NavigationBar({ token }) {
   return (
     <Navbar className="mb-3" bg="light" expand="lg">
 
-      <Navbar.Brand as={Link} to="/">Superhero Hunter</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">
+        {' '}
+        <img
+          alt=""
+          src="/logo256.png"
+          width="32"
+          height="32"
+          className="d-inline-block align-top mr-1"
+        />
+        {' '}
+        Superhero Hunter
+
+      </Navbar.Brand>
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav defaultActiveKey={token ? '/team' : '/login'}>
