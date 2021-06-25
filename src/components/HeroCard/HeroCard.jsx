@@ -13,7 +13,7 @@ function HeroCard({
     <Card className="hero-card text-dark mb-3" style={{ width: '12rem' }}>
       <Card.Img className="hero-image" variant="top" src={image} />
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
+        <Card.Title className="text-center">{name}</Card.Title>
         {isHeroInTeam(id) ? (
           <Button
             className="hover-button remove-button"

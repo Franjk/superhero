@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import axios from '../../axios';
 import './HeroSearchForm.scss';
 
 function HeroSearchForm({ submitFn, loadingFn }) {
@@ -20,24 +20,19 @@ function HeroSearchForm({ submitFn, loadingFn }) {
     }),
     onSubmit: async (values) => {
       const { heroName } = values;
-      const accessToken = '4695976300416765';
-      const url = `https://superheroapi.com/api.php/${accessToken}/search/${heroName}`;
 
       loadingFn(true);
 
       let res;
       try {
-        res = await axios.get(url);
-        console.log('res', res);
+        res = await axios.get(`/search/${heroName}`);
         if (res.status === 200) {
-          console.log(res.data);
           submitFn(res.data.results);
           loadingFn(false);
         } else {
           throw new Error(res.data);
         }
       } catch (err) {
-        console.log(err);
         formik.errors.heroName = 'Error test';
       }
     },
@@ -60,7 +55,7 @@ function HeroSearchForm({ submitFn, loadingFn }) {
         Buscar
       </Button>
 
-      <Form.Control.Feedback type="invalid">
+      <Form.Control.Feedback type="invalid" className="hero-search-form-feedback">
         {formik.errors.heroName}
       </Form.Control.Feedback>
 

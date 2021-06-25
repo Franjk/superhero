@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Card, Col, Row,
+  Button, Card,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './TeamItem.scss';
@@ -16,14 +16,8 @@ function TeamItem({
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Powerstats powerstats={powerstats} />
-        <Row className="button-container">
-          <Col>
-            <Link className="btn btn-secondary" to={`/hero/${id}`}>Details</Link>
-          </Col>
-          <Col>
-            <Button variant="danger" onClick={() => actions.delete(id)}>Remove</Button>
-          </Col>
-        </Row>
+        <Link className="btn btn-outline-dark btn-sm mr-1" to={`/hero/${id}`}>Details</Link>
+        <Button variant="outline-danger" size="sm" onClick={() => actions.delete(id)}>Remove</Button>
       </Card.Body>
     </Card>
   );

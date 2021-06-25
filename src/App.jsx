@@ -1,31 +1,43 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import {
+  Redirect, Route, Switch,
+} from 'react-router-dom';
+import { useAuth } from './hooks';
 import HeroSearchPage from './components/HeroSearchPage/HeroSearchPage';
-import LogInForm from './components/LogInForm/LogInForm';
-import Team from './components/Team/Team';
-import './App.css';
-import HeroDetails from './components/HeroDetails/HeroDetails';
+import LogInPage from './components/LogInPage/LogInPage';
+import TeamPage from './components/TeamPage/TeamPage';
+import HeroDetailsPage from './components/HeroDetailsPage/HeroDetailsPage';
+import NavigationBar from './components/NavigationBar/NavigationBar';
+import LogOutPage from './components/LogOutPage/LogOutPage';
 
 function App() {
+  const { token, storeToken } = useAuth();
+
   return (
     <div className="App">
       <header className="App-header">
-        Header
+        <NavigationBar token={token} />
       </header>
       <main>
         <Switch>
-          <Route path="/team">
-            <Team />
-          </Route>
           <Route path="/login">
-            <LogInForm />
+            <LogInPage storeToken={storeToken} />
+          </Route>
+          <Route path="/logout">
+            <LogOutPage storeToken={storeToken} />
+          </Route>
+          <Route path="/team">
+            <TeamPage />
           </Route>
           <Route path="/search">
             <HeroSearchPage />
           </Route>
           <Route path="/hero/:id">
-            <HeroDetails />
+            <HeroDetailsPage />
+          </Route>
+          <Route path="/" exact>
+            <Redirect to="/team" />
           </Route>
         </Switch>
       </main>

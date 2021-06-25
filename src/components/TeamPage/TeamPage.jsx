@@ -4,13 +4,16 @@ import {
   Col, Container, Row, Spinner,
 } from 'react-bootstrap';
 import { getTeam, removeHero } from '../../helpers/localStorage';
+import { useAuth } from '../../hooks';
 import axios from '../../axios';
 import TeamItem from '../TeamItem/TeamItem';
-import './Team.scss';
 
-function Team() {
+function TeamPage() {
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { redirectIfNotAuth } = useAuth();
+
+  redirectIfNotAuth();
 
   useEffect(() => {
     const teamIds = getTeam();
@@ -28,9 +31,9 @@ function Team() {
   };
 
   return (
-    <Container className="team">
+    <Container className="team-page">
       <h1 className="mb-5">Team</h1>
-      <Row className="row">
+      <Row className="justify-content-center">
         {loading && (<Spinner animation="grow" variant="primary" />)}
 
         {team && team.map((hero) => (
@@ -57,4 +60,4 @@ function Team() {
   );
 }
 
-export default Team;
+export default TeamPage;

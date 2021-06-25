@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Alert, Container, Col, Row, Spinner,
 } from 'react-bootstrap';
+import { useAuth } from '../../hooks';
 import HeroSearchForm from '../HeroSearchForm/HeroSearchForm';
 import HeroCard from '../HeroCard/HeroCard';
 import './HeroSearchPage.scss';
@@ -11,6 +12,9 @@ function HeroSearchPage() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const { redirectIfNotAuth } = useAuth();
+
+  redirectIfNotAuth();
 
   const addToTeam = (hero) => {
     const result = addHero(hero.id);
@@ -61,21 +65,23 @@ function HeroSearchPage() {
         <HeroSearchForm submitFn={setResults} loadingFn={setLoading} />
       </Row>
 
-      {loading && (
-        <Spinner animation="grow" variant="primary" />
-      )}
+      <Row className="justify-content-center">
 
-      <Row className="justify-content-start">
-        {results && results.map((res) => (
-          <Col key={res.id}>
-            <HeroCard
-              id={res.id}
-              name={res.name}
-              image={res.image.url}
-              actions={{ addToTeam, removeFromTeam }}
-            />
-          </Col>
-        ))}
+        {loading ? (
+          <Spinner animation="grow" variant="primary" />
+        ) : (
+          results && results.map((res) => (
+            <Col key={res.id}>
+              <HeroCard
+                id={res.id}
+                name={res.name}
+                image={res.image.url}
+                actions={{ addToTeam, removeFromTeam }}
+              />
+            </Col>
+          ))
+        )}
+
       </Row>
 
     </Container>

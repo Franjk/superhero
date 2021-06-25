@@ -5,11 +5,15 @@ import {
   Col, Container, Image, Row, Spinner, Table,
 } from 'react-bootstrap';
 import axios from '../../axios';
-import './HeroDetails.scss';
+import { useAuth } from '../../hooks';
+import './HeroDetailsPage.scss';
 
-function HeroDetails() {
+function HeroDetailsPage() {
   const { id } = useParams();
   const [hero, setHero] = useState(null);
+  const { redirectIfNotAuth } = useAuth();
+
+  redirectIfNotAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,22 +36,22 @@ function HeroDetails() {
   if (!hero) {
     return (
       <Container>
-        <Spinner animation="grow" variant="primary" />
+        <Row className="justify-content-center mt-5">
+          <Spinner animation="grow" variant="primary" />
+        </Row>
       </Container>
     );
   }
 
   return (
-    <Container className="hero-details">
-      <Row className="justify-content-center">
-        <Col xs="auto">
-          <Image className="mb-5" src={hero.image} alt={hero.name} fluid />
-        </Col>
-      </Row>
+    <Container className="hero-details-page">
       <h1 className="mb-3">{hero.name}</h1>
       <Row className="justify-content-center">
-        <Col sm={12} md={8}>
-          <Table striped bordered hover className="hero-details-table">
+        <Col xs={12} sm={4}>
+          <Image className="hero-details-page-image mb-3" src={hero.image} alt={hero.name} />
+        </Col>
+        <Col xs={12} sm={8}>
+          <Table striped bordered hover className="hero-details-page-table">
             <tbody>
               <tr>
                 <td>Aliases</td>
@@ -77,8 +81,9 @@ function HeroDetails() {
           </Table>
         </Col>
       </Row>
+
     </Container>
   );
 }
 
-export default HeroDetails;
+export default HeroDetailsPage;
