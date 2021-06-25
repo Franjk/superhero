@@ -1,3 +1,10 @@
 .hero-search-form {
   margin: auto;
+  position: relative;
+
+  &-feedback {
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
 }

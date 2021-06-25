@@ -1,0 +1,18 @@
+.hero-details-page {
+  margin: auto;
+  &-table {
+    text-align: left;
+    box-shadow: var(--box-shadow-sm);
+
+    td:first-child {
+      text-align: right;
+      font-weight: bold;
+      width: 30%;
+    }
+  }
+
+  &-image {
+    width: 100%;
+    box-shadow: var(--box-shadow-sm);
+  }
+}
