@@ -57,6 +57,7 @@ function HeroSearchPage() {
         type: 'danger',
         text: 'No heroes found',
       });
+      setResults(null);
     }
     setLoading(false);
   };
