@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
-// import Powerstat from '../Powerstat/Powerstat';
 import './Powerstats.scss';
 
-// <Powerstat type={stat} value={powerstats[stat]} />
 function Powerstats({ powerstats }) {
   return (
     <Table className="powerstats" hover size="sm">
