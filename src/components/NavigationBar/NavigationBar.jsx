@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-function NavigationBar({ token }) {
+function NavigationBar({ token, logOutFn }) {
+  const history = useHistory();
+  const navLogOut = () => {
+    logOutFn();
+    history.push('/');
+  };
+
   return (
     <Navbar className="mb-3" bg="light" expand="lg">
 
@@ -33,7 +39,7 @@ function NavigationBar({ token }) {
                 <Nav.Link eventKey="/search" as={Link} to="/search">Search heroes</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="/logout" as={Link} to="/logout">Log out</Nav.Link>
+                <Nav.Link eventKey="/logout" onClick={navLogOut}>Log out</Nav.Link>
               </Nav.Item>
             </>
           ) : (
@@ -50,6 +56,7 @@ function NavigationBar({ token }) {
 
 NavigationBar.propTypes = {
   token: PropTypes.string,
+  logOutFn: PropTypes.func.isRequired,
 };
 
 NavigationBar.defaultProps = {

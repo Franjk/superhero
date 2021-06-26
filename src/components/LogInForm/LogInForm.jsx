@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { axiosAlkemy } from '../../axios';
 
-function LogInForm({ storeToken }) {
+function LogInForm({ logInFn }) {
   const history = useHistory();
 
   const formik = useFormik({
@@ -29,7 +29,7 @@ function LogInForm({ storeToken }) {
       try {
         res = await axiosAlkemy.post('', { email, password });
         if (res.status === 200) {
-          storeToken(res.data.token);
+          logInFn(res.data.token);
           history.push('/');
         } else {
           throw new Error(res.data);
@@ -37,7 +37,7 @@ function LogInForm({ storeToken }) {
       } catch (err) {
         // A fake login for demonstrations purposes only
         if (email === 'challenge@alkemy.org' && password === 'react') {
-          storeToken('13456');
+          logInFn('13456');
           history.push('/');
         } else {
           formik.errors.email = 'Invalid email. Try \'challenge@alkemy.org\'';
@@ -90,7 +90,7 @@ function LogInForm({ storeToken }) {
 }
 
 LogInForm.propTypes = {
-  storeToken: PropTypes.func.isRequired,
+  logInFn: PropTypes.func.isRequired,
 };
 
 export default LogInForm;

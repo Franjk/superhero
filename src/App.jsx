@@ -12,20 +12,20 @@ import NavigationBar from './components/NavigationBar/NavigationBar';
 import LogOutPage from './components/LogOutPage/LogOutPage';
 
 function App() {
-  const { token, storeToken } = useAuth();
+  const { token, logIn, logOut } = useAuth();
 
   return (
     <div className="App">
       <header className="App-header">
-        <NavigationBar token={token} />
+        <NavigationBar token={token} logOutFn={logOut} />
       </header>
       <main>
         <Switch>
           <Route path="/login">
-            <LogInPage storeToken={storeToken} />
+            <LogInPage logInFn={logIn} />
           </Route>
           <Route path="/logout">
-            <LogOutPage storeToken={storeToken} />
+            <LogOutPage logOutFn={logOut} />
           </Route>
           <Route path="/team">
             <TeamPage />

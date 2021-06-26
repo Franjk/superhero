@@ -1,16 +1,19 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+// import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function LogOutPage({ storeToken }) {
-  storeToken('');
+function LogOutPage({ logOutFn }) {
+  const history = useHistory();
+  logOutFn('');
+  history.push('/');
   return (
-    <Redirect to="/" />
+    null
   );
 }
 
 LogOutPage.propTypes = {
-  storeToken: PropTypes.func.isRequired,
+  logOutFn: PropTypes.func.isRequired,
 };
 
 export default LogOutPage;
