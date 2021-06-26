@@ -35,6 +35,7 @@ function LogInForm({ storeToken }) {
           throw new Error(res.data);
         }
       } catch (err) {
+        console.log('Error', err);
         formik.errors.email = 'Invalid email. Try \'challenge@alkemy.org\'';
         formik.errors.password = 'Invalid password. Try \'react\'';
       }
