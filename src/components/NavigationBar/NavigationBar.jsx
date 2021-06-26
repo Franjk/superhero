@@ -11,7 +11,7 @@ function NavigationBar({ token }) {
         {' '}
         <img
           alt=""
-          src="/logo256.png"
+          src="/superhero/logo256.png"
           width="32"
           height="32"
           className="d-inline-block align-top mr-1"

@@ -36,7 +36,7 @@ function App() {
           <Route path="/hero/:id">
             <HeroDetailsPage />
           </Route>
-          <Route path="/" exact>
+          <Route path="/">
             <Redirect to="/team" />
           </Route>
         </Switch>
