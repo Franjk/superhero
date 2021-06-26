@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Alert, Col, Container, Row, Spinner,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { getTeam, removeHero } from '../../helpers/localStorage';
 import { useAuth } from '../../hooks';
 import { axiosSuperhero } from '../../axios';
@@ -76,6 +77,15 @@ function TeamPage() {
           </Col>
 
         ))}
+
+        {team && team.length === 0 && (
+          <p>
+            Your team is empty, add heroes
+            {' '}
+            <Link to="/search">here</Link>
+            .
+          </p>
+        )}
 
       </Row>
 
