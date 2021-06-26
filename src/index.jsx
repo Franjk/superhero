@@ -7,7 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <HashRouter basename="/superhero">
+  <HashRouter basename="/">
     <App />
   </HashRouter>,
   document.getElementById('root'),
