@@ -1,9 +1,7 @@
-import axios from 'axios';
+import axiosAlkemy from './axiosAlkemyAPI';
+import axiosSuperhero from './axiosSuperheroAPI';
 
-const accessToken = '4695976300416765';
-
-const instance = axios.create({
-  baseURL: `https://superheroapi.com/api.php/${accessToken}`,
-});
-
-export default instance;
+export {
+  axiosAlkemy,
+  axiosSuperhero,
+};

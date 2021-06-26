@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from '../../axios';
+import { axiosSuperhero } from '../../axios';
 import './HeroSearchForm.scss';
 
 function HeroSearchForm({ submitFn, loadingFn }) {
@@ -25,15 +25,14 @@ function HeroSearchForm({ submitFn, loadingFn }) {
 
       let res;
       try {
-        res = await axios.get(`/search/${heroName}`);
+        res = await axiosSuperhero.get(`/search/${heroName}`);
         if (res.status === 200) {
           submitFn(res.data.results);
-          loadingFn(false);
         } else {
           throw new Error(res.data);
         }
       } catch (err) {
-        formik.errors.heroName = 'Error test';
+        formik.errors.heroName = 'Error searching heroes, please try again.';
       }
     },
   });

@@ -2,36 +2,57 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Col, Container, Image, Row, Spinner, Table,
+  Alert, Col, Container, Image, Row, Spinner, Table,
 } from 'react-bootstrap';
-import axios from '../../axios';
+import { axiosSuperhero } from '../../axios';
 import { useAuth } from '../../hooks';
 import './HeroDetailsPage.scss';
 
 function HeroDetailsPage() {
   const { id } = useParams();
   const [hero, setHero] = useState(null);
+  const [error, setError] = useState(null);
   const { redirectIfNotAuth } = useAuth();
 
   redirectIfNotAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`/${id}`);
-      const tmpHero = {
-        name: res.data.name,
-        aliases: res.data.biography.aliases,
-        eyeColor: res.data.appearance['eye-color'],
-        hairColor: res.data.appearance['hair-color'],
-        height: res.data.appearance.height[1],
-        weight: res.data.appearance.weight[1],
-        placeOfWork: res.data.work.base,
-        image: res.data.image.url,
-      };
-      setHero(tmpHero);
+      try {
+        const res = await axiosSuperhero.get(`/${id}`);
+        const tmpHero = {
+          name: res.data.name,
+          aliases: res.data.biography.aliases,
+          eyeColor: res.data.appearance['eye-color'],
+          hairColor: res.data.appearance['hair-color'],
+          height: res.data.appearance.height[1],
+          weight: res.data.appearance.weight[1],
+          placeOfWork: res.data.work.base,
+          image: res.data.image.url,
+        };
+        setHero(tmpHero);
+      } catch (_err) {
+        setError({
+          text: 'Hero not found',
+        });
+      }
     };
     fetchData();
   }, []);
+
+  if (error) {
+    return (
+      <Container>
+        <Row className="justify-content-center mt-5">
+          <Alert
+            variant="danger"
+          >
+            {error.text}
+          </Alert>
+        </Row>
+      </Container>
+    );
+  }
 
   if (!hero) {
     return (

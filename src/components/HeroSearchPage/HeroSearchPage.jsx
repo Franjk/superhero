@@ -46,6 +46,19 @@ function HeroSearchPage() {
     }
   };
 
+  const handleOnSubmit = (formResults) => {
+    if (formResults) {
+      setAlert(null);
+      setResults(formResults);
+    } else {
+      setAlert({
+        type: 'danger',
+        text: 'No heroes found',
+      });
+    }
+    setLoading(false);
+  };
+
   return (
     <Container className="hero-search-page">
       {alert && (
@@ -62,7 +75,7 @@ function HeroSearchPage() {
       <h1 className="mb-5">Hero Search</h1>
 
       <Row className="mb-5">
-        <HeroSearchForm submitFn={setResults} loadingFn={setLoading} />
+        <HeroSearchForm submitFn={handleOnSubmit} loadingFn={setLoading} />
       </Row>
 
       <Row className="justify-content-center">

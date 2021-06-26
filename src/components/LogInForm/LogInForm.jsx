@@ -1,14 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-alert */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import axios from 'axios';
-
-const url = 'http://challenge-react.alkemy.org/';
+import { axiosAlkemy } from '../../axios';
 
 function LogInForm({ storeToken }) {
   const history = useHistory();
@@ -31,7 +27,7 @@ function LogInForm({ storeToken }) {
 
       let res;
       try {
-        res = await axios.post(url, { email, password });
+        res = await axiosAlkemy.post('', { email, password });
         if (res.status === 200) {
           storeToken(res.data.token);
           history.push('/');
@@ -39,8 +35,6 @@ function LogInForm({ storeToken }) {
           throw new Error(res.data);
         }
       } catch (err) {
-        // console.warn(err);
-        alert('Invalid credentials');
         formik.errors.email = 'Invalid email. Try \'challenge@alkemy.org\'';
         formik.errors.password = 'Invalid password. Try \'react\'';
       }
