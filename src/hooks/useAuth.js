@@ -10,9 +10,16 @@ export default function useAuth() {
     setToken(tkn);
   };
 
-  const redirectIfNotAuth = () => {
-    if (!token) history.push('/login');
+  const redirectToLogIn = () => {
+    history.push('/login');
   };
 
-  return { token, storeToken, redirectIfNotAuth };
+  const isAuth = () => {
+    if (token) return true;
+    return false;
+  };
+
+  return {
+    token, storeToken, isAuth, redirectToLogIn,
+  };
 }

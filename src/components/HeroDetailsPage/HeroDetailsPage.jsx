@@ -11,11 +11,14 @@ function HeroDetailsPage() {
   const { id } = useParams();
   const [hero, setHero] = useState(null);
   const [error, setError] = useState(null);
-  const { redirectIfNotAuth } = useAuth();
-
-  redirectIfNotAuth();
+  const { isAuth, redirectToLogIn } = useAuth();
 
   useEffect(() => {
+    if (!isAuth()) {
+      redirectToLogIn();
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const res = await axiosSuperhero.get(`/${id}`);

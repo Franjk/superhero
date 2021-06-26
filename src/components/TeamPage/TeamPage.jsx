@@ -11,11 +11,14 @@ function TeamPage() {
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { redirectIfNotAuth } = useAuth();
-
-  redirectIfNotAuth();
+  const { isAuth, redirectToLogIn } = useAuth();
 
   useEffect(() => {
+    if (!isAuth()) {
+      redirectToLogIn();
+      return;
+    }
+
     const teamIds = getTeam();
 
     const fetchData = async () => {

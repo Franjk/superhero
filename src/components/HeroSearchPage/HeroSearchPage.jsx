@@ -12,9 +12,11 @@ function HeroSearchPage() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const { redirectIfNotAuth } = useAuth();
+  const { isAuth, redirectToLogIn } = useAuth();
 
-  redirectIfNotAuth();
+  if (!isAuth()) {
+    redirectToLogIn();
+  }
 
   const addToTeam = (hero) => {
     const result = addHero(hero.id);
